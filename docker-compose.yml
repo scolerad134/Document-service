@@ -1,0 +1,10 @@
+services:
+  database:
+    container_name: document-database
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: document-service
+    ports:
+      - "5433:5432"
