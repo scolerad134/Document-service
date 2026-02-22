@@ -1,6 +1,6 @@
 package com.itq.entity.enums;
 
-public enum Status {
+public enum DocumentStatus {
 
     DRAFT, SUBMITTED, APPROVED
 }

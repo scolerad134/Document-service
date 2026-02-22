@@ -1,6 +1,6 @@
 package com.itq.entity;
 
-import com.itq.entity.enums.Status;
+import com.itq.entity.enums.DocumentStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,7 +44,7 @@ public class Document {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private DocumentStatus status;
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<History> history;
