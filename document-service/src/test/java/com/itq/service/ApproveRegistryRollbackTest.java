@@ -43,7 +43,7 @@ class ApproveRegistryRollbackTest {
 
     @Test
     void approve_rollbackWhenRegistryFails() {
-        Long id = documentService.createDocument(new DocumentCreateRequest("Author", "Title"));
+        Long id = documentService.createDocument(new DocumentCreateRequest("initiator", "Author", "Title"));
         documentService.submit(new BatchOpRequest("user", List.of(id), null));
 
         doThrow(new RegistryException("Registry write failed")).when(approvalRegistryWriter).write(any());

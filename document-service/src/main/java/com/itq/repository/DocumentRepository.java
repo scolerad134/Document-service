@@ -19,6 +19,8 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 
     List<Document> findByIdIn(List<Long> ids);
 
+    long countByStatus(DocumentStatus status);
+
     @Query("""
         select d from Document d where
         (:status is null or d.status = :status) and

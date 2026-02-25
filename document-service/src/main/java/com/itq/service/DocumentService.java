@@ -170,6 +170,9 @@ public class DocumentService {
         if (req == null) {
             throw new ValidationException("Request cannot be null");
         }
+        if (req.initiator() == null || req.initiator().isBlank()) {
+            throw new ValidationException("Initiator cannot be empty");
+        }
         if (req.author() == null || req.author().isBlank()) {
             throw new ValidationException("Author cannot be empty");
         }

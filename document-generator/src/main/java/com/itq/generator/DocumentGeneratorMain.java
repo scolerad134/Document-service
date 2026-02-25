@@ -48,7 +48,7 @@ public class DocumentGeneratorMain {
 
         for (int i = 0; i < count; i++) {
             long start = System.currentTimeMillis();
-            boolean ok = createDocument(client, baseUrl, "Generator", "Document #" + (i + 1));
+            boolean ok = createDocument(client, baseUrl, "Generator", "Generator", "Document #" + (i + 1));
             long elapsed = System.currentTimeMillis() - start;
 
             if (ok) {
@@ -88,8 +88,11 @@ public class DocumentGeneratorMain {
         return props;
     }
 
-    private static boolean createDocument(HttpClient client, String baseUrl, String author, String title) {
-        ObjectNode body = MAPPER.createObjectNode().put("author", author).put("title", title);
+    private static boolean createDocument(HttpClient client, String baseUrl, String initiator, String author, String title) {
+        ObjectNode body = MAPPER.createObjectNode()
+            .put("initiator", initiator)
+            .put("author", author)
+            .put("title", title);
         String json;
         try {
             json = MAPPER.writeValueAsString(body);

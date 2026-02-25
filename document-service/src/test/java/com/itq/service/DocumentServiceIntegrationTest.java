@@ -36,7 +36,7 @@ class DocumentServiceIntegrationTest {
 
     @Test
     void createDocument_happyPath() {
-        var req = new DocumentCreateRequest("Author1", "Test Doc");
+        var req = new DocumentCreateRequest("user@test", "Author1", "Test Doc");
         Long id = documentService.createDocument(req);
 
         assertThat(id).isNotNull();
@@ -50,7 +50,7 @@ class DocumentServiceIntegrationTest {
 
     @Test
     void submit_singleDocument() {
-        Long id = documentService.createDocument(new DocumentCreateRequest("A", "T"));
+        Long id = documentService.createDocument(new DocumentCreateRequest("user", "A", "T"));
         var result = documentService.submit(new BatchOpRequest("user1", java.util.List.of(id), null));
 
         assertThat(result.results()).hasSize(1);
@@ -66,7 +66,7 @@ class DocumentServiceIntegrationTest {
 
     @Test
     void approve_singleDocument() {
-        Long id = documentService.createDocument(new DocumentCreateRequest("A", "T"));
+        Long id = documentService.createDocument(new DocumentCreateRequest("user", "A", "T"));
         documentService.submit(new BatchOpRequest("u1", java.util.List.of(id), null));
 
         var result = documentService.approve(new BatchOpRequest("u2", java.util.List.of(id), "OK"));
@@ -82,8 +82,8 @@ class DocumentServiceIntegrationTest {
 
     @Test
     void submit_batch_partialResults() {
-        Long id1 = documentService.createDocument(new DocumentCreateRequest("A", "T1"));
-        Long id2 = documentService.createDocument(new DocumentCreateRequest("B", "T2"));
+        Long id1 = documentService.createDocument(new DocumentCreateRequest("user", "A", "T1"));
+        Long id2 = documentService.createDocument(new DocumentCreateRequest("user", "B", "T2"));
         Long id3 = 99999L; // не существует
 
         documentService.submit(new BatchOpRequest("u1", java.util.List.of(id1), null));
@@ -101,8 +101,8 @@ class DocumentServiceIntegrationTest {
 
     @Test
     void approve_batch_partialResults() {
-        Long id1 = documentService.createDocument(new DocumentCreateRequest("A", "T1"));
-        Long id2 = documentService.createDocument(new DocumentCreateRequest("B", "T2"));
+        Long id1 = documentService.createDocument(new DocumentCreateRequest("user", "A", "T1"));
+        Long id2 = documentService.createDocument(new DocumentCreateRequest("user", "B", "T2"));
         Long id3 = 99999L;
 
         documentService.submit(new BatchOpRequest("u1", java.util.List.of(id1, id2), null));

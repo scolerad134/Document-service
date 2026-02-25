@@ -5,7 +5,9 @@ import com.itq.dto.BatchOpRequest;
 import com.itq.dto.BatchResultDto;
 import com.itq.dto.ItemResult;
 import com.itq.entity.Document;
+import com.itq.entity.enums.DocumentStatus;
 import com.itq.entity.enums.StatusChangeResultType;
+import com.itq.repository.DocumentRepository;
 import com.itq.service.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ public class SubmitWorker {
     private static final String SYSTEM_INITIATOR = "submit-worker";
 
     private final DocumentService documentService;
+    private final DocumentRepository documentRepository;
     private final WorkerProperties workerProperties;
 
     @Scheduled(initialDelayString = "${document.workers.initial-delay-ms:10000}",
@@ -49,9 +52,10 @@ public class SubmitWorker {
             .filter(r -> r.result() == StatusChangeResultType.SUCCESS)
             .count();
         long failed = result.results().size() - success;
+        long remaining = documentRepository.countByStatus(DocumentStatus.DRAFT);
 
-        log.info("SUBMIT-worker: batch of {} documents processed in {} ms, success={}, failed={}",
-            batch.size(), elapsed, success, failed);
+        log.info("SUBMIT-worker: batch of {} documents processed in {} ms, success={}, failed={}, осталось DRAFT={}",
+            batch.size(), elapsed, success, failed, remaining);
 
         if (failed > 0) {
             List<ItemResult> errors = result.results().stream()

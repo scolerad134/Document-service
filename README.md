@@ -15,7 +15,7 @@ docker compose up -d
 ### 2. Сервис
 
 ```bash
-mvn spring-boot:run
+mvn spring-boot:run -pl document-service
 ```
 
 Сервис доступен на http://localhost:8080
@@ -23,7 +23,7 @@ mvn spring-boot:run
 **Для ручной проверки API без фоновой обработки** (документы не переводятся автоматически):
 
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=manual
+mvn spring-boot:run -pl document-service -Dspring-boot.run.profiles=manual
 ```
 
 ### 3. Swagger UI
@@ -96,8 +96,8 @@ Total time: 2500 ms
 В логах сервиса ищите строки:
 
 ```
-SUBMIT-worker: batch of 50 documents processed in 120 ms, success=50, failed=0
-APPROVE-worker: batch of 50 documents processed in 95 ms, success=50, failed=0
+SUBMIT-worker: batch of 50 documents processed in 120 ms, success=50, failed=0, осталось DRAFT=0
+APPROVE-worker: batch of 50 documents processed in 95 ms, success=50, failed=0, осталось SUBMITTED=0
 ```
 
 При ошибках:
@@ -129,7 +129,7 @@ SUBMIT-worker: failed items: [ItemResult[id=123, result=CONFLICT, message=...]]
 ## Тесты
 
 ```bash
-mvn test
+mvn test -pl document-service
 ```
 
 Покрыто:
