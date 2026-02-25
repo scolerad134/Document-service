@@ -29,7 +29,7 @@ public class History {
     @Column(name = "initiator", nullable = false)
     private String initiator;
 
-    @Column(name = "comment", nullable = false)
+    @Column(name = "comment")
     private String comment;
 
     @Column(name = "created_at")

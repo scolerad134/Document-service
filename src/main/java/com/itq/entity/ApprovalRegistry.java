@@ -22,13 +22,13 @@ public class ApprovalRegistry {
     private Document document;
 
     @Column(name = "approved_by", nullable = false)
-    private String approved_by;
+    private String approvedBy;
 
     @Column(name = "approved_at")
-    private LocalDateTime approved_at;
+    private LocalDateTime approvedAt;
 
     @PrePersist
     protected void onCreate() {
-        approved_at = LocalDateTime.now();
+        approvedAt = LocalDateTime.now();
     }
 }

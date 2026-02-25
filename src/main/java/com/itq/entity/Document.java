@@ -34,7 +34,6 @@ public class Document {
     private Long id;
 
     @Column(name = "unique_number", nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uniqueNumber;
 
     @Column(name = "author", nullable = false)
@@ -61,6 +60,12 @@ public class Document {
 
     @PrePersist
     protected void onCreate() {
+        if (uniqueNumber == null) {
+            uniqueNumber = UUID.randomUUID();
+        }
+        if (status == null) {
+            status = DocumentStatus.DRAFT;
+        }
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }

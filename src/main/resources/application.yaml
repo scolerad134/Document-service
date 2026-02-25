@@ -17,3 +17,23 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+# workers
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+
+document:
+  workers:
+    batch-size: 50
+    # Задержка перед первым запуском воркеров (мс). 10000 = 10 сек.
+    initial-delay-ms: 10000
+    # Интервал между запусками (мс). 60000 = 1 мин.
+    submit-interval-ms: 60000
+    approve-interval-ms: 60000

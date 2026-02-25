@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApprovalRegistryRepository extends JpaRepository<ApprovalRegistry, Long> {
-
+    boolean existsByDocument_Id(Long documentId);
 }
