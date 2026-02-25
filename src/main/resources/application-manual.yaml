@@ -1,0 +1,6 @@
+# Профиль для ручной проверки API — воркеры отключены, документы не обрабатываются автоматически.
+# Запуск: mvn spring-boot:run -Dspring-boot.run.profiles=manual
+# или: java -jar app.jar --spring.profiles.active=manual
+document:
+  workers:
+    enabled: false

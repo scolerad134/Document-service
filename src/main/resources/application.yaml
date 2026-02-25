@@ -31,6 +31,7 @@ springdoc:
 
 document:
   workers:
+    enabled: true  # false — отключить воркеры для ручной проверки
     batch-size: 50
     # Задержка перед первым запуском воркеров (мс). 10000 = 10 сек.
     initial-delay-ms: 10000
