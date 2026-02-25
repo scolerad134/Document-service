@@ -1,26 +1,17 @@
 package com.itq.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.itq.entity.enums.DocumentAction;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Table(name = "history")
+@Getter
+@Setter
+@Table(name = "history", indexes = @Index(name="ix_hist_doc_time", columnList="document_id, created_at"))
 public class History {
 
     @Id
@@ -31,8 +22,9 @@ public class History {
     @JoinColumn(name = "document_id", nullable = false)
     private Document document;
 
-    @Column(name = "action", nullable = false)
-    private String action;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 16)
+    private DocumentAction action;
 
     @Column(name = "initiator", nullable = false)
     private String initiator;

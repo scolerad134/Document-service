@@ -15,17 +15,17 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "document")
 public class Document {
 
@@ -34,7 +34,8 @@ public class Document {
     private Long id;
 
     @Column(name = "unique_number", nullable = false, unique = true)
-    private String uniqueNumber;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID uniqueNumber;
 
     @Column(name = "author", nullable = false)
     private String author;

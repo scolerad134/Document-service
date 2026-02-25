@@ -1,25 +1,16 @@
 package com.itq.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Table(name = "approval_registry")
+@Getter
+@Setter
+@Table(name = "approval_registry", uniqueConstraints = @UniqueConstraint(name="uk_registry_doc", columnNames="document_id"))
 public class ApprovalRegistry {
 
     @Id
